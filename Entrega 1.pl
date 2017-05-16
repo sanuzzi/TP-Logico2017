@@ -1,4 +1,4 @@
-alquiler("Tinsmith Circle 1774",700,["3 ambientes","Jardin"]).
-alquiler("Av. Moreno 708",2000,["7 ambientes","Jardin","Pileta 30m3"]).
-alquiler("Av. Siempre Viva 742",1000,["4 ambientes","Jardin"]).
-alquiler("Calle falsa 123",200,["3 ambientes","Sin jardin"]).
+alquiler(tinsmithCircle1774,700,[ambientes3,jardin]).
+alquiler(avMoreno708,2000,[ambientes7,jardin,pileta30m3]).
+alquiler(avSiempreViva742,1000,[ambientes7,jardin]).
+alquiler(calleFalsa123,200,[ambientes3,sinjardin]).
