@@ -20,7 +20,8 @@ piscina(avMoreno708,30).
 
 igualAmbientes(Casa1,Casa2):-
   ambientes(Casa1,UnosAmbientes),
-  ambientes(Casa2,UnosAmbientes).
+  ambientes(Casa2,UnosAmbientes),
+  Casa1\=Casa2.
 
 % 2.
 % ?-
