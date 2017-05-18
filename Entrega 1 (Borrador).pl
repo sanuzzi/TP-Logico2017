@@ -82,7 +82,7 @@ quiere(chamaleon,Lugar):- quiere(ana,Lugar).
 revisarAmbientes(ambientes(UnaCasa,Ambientes)):-
 ambientes(UnaCasa,Ambientes),
 Ambientes >=2.
->>> revisar(Casa)
+>>> revisarAmbientes(Casa)
 <<< Casa = ambientes(tinsmithCircle1774, 3)
 Casa = ambientes(avMoreno708, 7)
 Casa = ambientes(avSiempreViva742, 4)
