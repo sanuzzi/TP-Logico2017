@@ -1,67 +1,72 @@
-alquiler(casa(tinsmithCircle1774, 700)).
-alquiler(casa(avMoreno708, 2000)).
-alquiler(casa(avSiempreViva742,1000)).
-alquiler(casa(calleFalsa123, 200)).
+casa(tinsmithCircle1774, 700).
+casa(avMoreno708, 2000).
+casa(avSiempreViva742,1000).
+casa(calleFalsa123, 200).
 
-caracteristica(ambientes(tinsmithCircle1774,3)).
-caracteristica(ambientes(avMoreno708,7)).
-caracteristica(ambientes(avSiempreViva742,4)).
-caracteristica(ambientes(calleFalsa123,3)).
+caracteristica(tinsmithCircle1774,ambientes(3)).
+caracteristica(avMoreno708,ambientes(7)).
+caracteristica(avSiempreViva742,ambientes(4)).
+caracteristica(calleFalsa123,ambientes(3)).
 
-caracteristica(jardin(tinsmithCircle1774)).
-caracteristica(jardin(avMoreno708)).
-caracteristica(jardin(avSiempreViva742)).
+caracteristica(tinsmithCircle1774,jardin()).
+caracteristica(avMoreno708,jardin()).
+caracteristica(avSiempreViva742,jardin()).
 
-caracteristica(pileta(avMoreno708,30)).
+caracteristica(avMoreno708,pileta(30)).
 
 % 1.
-% ?- piscina(X,30).
-% X = avMoreno708.
+%?- caracteristica(X,pileta(30)).
+%X = avMoreno708.
 
 igualAmbientes(Casa1,Casa2):-
-  ambientes(Casa1,UnosAmbientes),
-  ambientes(Casa2,UnosAmbientes),
-  Casa1\=Casa2.
+  caracteristica(Casa1,ambientes(UnosAmbientes)),
+  caracteristica(Casa2,ambientes(UnosAmbientes)),
+  Casa1 \= Casa2.
 
 % 2.
-% ?- igualAmbientes(X,Y).
-% X = Y, Y = tinsmithCircle1774 ;
-% X = Y, Y = avMoreno708 ;
-% X = Y, Y = avSiempreViva742 ;
-% X = Y, Y = calleFalsa123.
-% X = tinsmithCircle1774,
-% Y = calleFalsa123 ;
-% X = calleFalsa123,
-% Y = tinsmithCircle1774 ;
+%?- igualAmbientes(X,Y).
+%X = tinsmithCircle1774,
+%Y = calleFalsa123 ;
+%X = calleFalsa123,
+%Y = tinsmithCircle1774 ;
+%false.
+
 
 cumpleAmbientes(UnaCasa, UnosAmbientes, UnaRestriccion):-
-  ambientes(UnaCasa,UnosAmbientes),
+  caracteristica(UnaCasa,ambientes(UnosAmbientes)),
   UnosAmbientes>=UnaRestriccion.
 
 cumplePileta(UnaCasa, UnosM3, UnaRestriccion):-
-  pileta(UnaCasa,UnosM3),
+  caracteristica(UnaCasa,pileta(UnosM3)),
   UnosM3>=UnaRestriccion.
 
-quiere(carlos, (ambientes(UnaCasa,UnosAmbientes))):- cumpleAmbientes(UnaCasa,UnosAmbientes,3).
-quiere(carlos, (jardin(UnaCasa))):-jardin(UnaCasa).
+quiere(carlos, (caracteristica(UnaCasa,ambientes(UnosAmbientes)))):-
+  cumpleAmbientes(UnaCasa,UnosAmbientes,3).
+quiere(carlos, (caracteristica(UnaCasa,jardin()))):-
+  caracteristica(UnaCasa,jardin()).
 
-quiere(ana, (pileta(UnaCasa,UnosMetrosCubicos))):- cumplePileta(UnaCasa,UnosMetrosCubicos, 15).
+quiere(ana, (caracteristica(UnaCasa,pileta(UnosMetrosCubicos)))):-
+  cumplePileta(UnaCasa,UnosMetrosCubicos, 15).
 
-quiere(maria, (ambientes(UnaCasa,UnosAmbientes))):- cumpleAmbientes(UnaCasa, UnosAmbientes,3).
-quiere(maria, (pileta(UnaCasa, UnosMetrosCubicos))):- cumplePileta(UnaCasa,UnosMetrosCubicos, 15).
+quiere(maria, (caracteristica(UnaCasa,ambientes(UnosAmbientes)))):-
+  cumpleAmbientes(UnaCasa, UnosAmbientes,3).
+quiere(maria, (caracteristica(UnaCasa,pileta( UnosMetrosCubicos)))):-
+  cumplePileta(UnaCasa,UnosMetrosCubicos, 15).
 
-quiere(pedro, UnaRestriccion):- quiere(maria, UnaRestriccion).
+quiere(pedro, UnaCaracteristica):-
+  quiere(maria, UnaCaracteristica).
 
-quiere(chameleon, UnaCasa):- quiere(Cualquiera, UnaCasa),Cualquiera\=chameleon.
-
+quiere(chameleon, UnaCaracteristica):-
+  quiere(Cualquiera, UnaCaracteristica),
+  Cualquiera\=chameleon.
 % 3.
-% ?- quiere(pedro,X).
-% X = ambientes(tinsmithCircle1774, 3) ;
-% X = ambientes(avMoreno708, 7) ;
-% X = ambientes(avSiempreViva742, 4) ;
-% X = ambientes(calleFalsa123, 3) ;
-% X = pileta(avMoreno708, 30).
+%?- quiere(pedro, X).
+%X = caracteristica(tinsmithCircle1774, ambientes(3)) ;
+%X = caracteristica(avMoreno708, ambientes(7)) ;
+%X = caracteristica(avSiempreViva742, ambientes(4)) ;
+%X = caracteristica(calleFalsa123, ambientes(3)) ;
+%X = caracteristica(avMoreno708, pileta(30)).
 
 % 4.
-% ?-  ambientes(X,2).
-% false.
+%?- caracteristica(X,ambientes(2)).
+%false.
