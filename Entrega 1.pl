@@ -1,18 +1,18 @@
-alquiler(tinsmithCircle1774, 700).
-alquiler(avMoreno708, 2000).
-alquiler(avSiempreViva742,1000).
-alquiler(calleFalsa123, 200).
+alquiler(casa(tinsmithCircle1774, 700)).
+alquiler(casa(avMoreno708, 2000)).
+alquiler(casa(avSiempreViva742,1000)).
+alquiler(casa(calleFalsa123, 200)).
 
-ambientes(tinsmithCircle1774,3).
-ambientes(avMoreno708,7).
-ambientes(avSiempreViva742,4).
-ambientes(calleFalsa123,3).
+caracteristica(ambientes(tinsmithCircle1774,3)).
+caracteristica(ambientes(avMoreno708,7)).
+caracteristica(ambientes(avSiempreViva742,4)).
+caracteristica(ambientes(calleFalsa123,3)).
 
-jardin(tinsmithCircle1774).
-jardin(avMoreno708).
-jardin(avSiempreViva742).
+caracteristica(jardin(tinsmithCircle1774)).
+caracteristica(jardin(avMoreno708)).
+caracteristica(jardin(avSiempreViva742)).
 
-pileta(avMoreno708,30).
+caracteristica(pileta(avMoreno708,30)).
 
 % 1.
 % ?- piscina(X,30).
