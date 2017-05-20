@@ -56,9 +56,11 @@ quiere(maria, (caracteristica(UnaCasa,pileta( UnosMetrosCubicos)))):-
 quiere(pedro, UnaCaracteristica):-
   quiere(maria, UnaCaracteristica).
 
-quiere(chameleon, UnaCaracteristica):-
-  quiere(Cualquiera, UnaCaracteristica),
-  Cualquiera\=chameleon.
+quiere(chameleon, UnaCaracteristica):- quiere(carlos, UnaCaracteristica).
+quiere(chameleon, UnaCaracteristica):- quiere(ana, UnaCaracteristica).
+quiere(chameleon, UnaCaracteristica):- quiere(maria, UnaCaracteristica).
+quiere(chameleon, UnaCaracteristica):- quiere(pedro, UnaCaracteristica).
+
 % 3.
 %?- quiere(pedro, X).
 %X = caracteristica(tinsmithCircle1774, ambientes(3)) ;
@@ -70,3 +72,29 @@ quiere(chameleon, UnaCaracteristica):-
 % 4.
 %?- caracteristica(X,ambientes(2)).
 %false.
+
+% 5.
+%?- quiere(pedro, caracteristica(X,_)).
+%X = tinsmithCircle1774 ;
+%X = avMoreno708 ;
+%X = avSiempreViva742 ;
+%X = calleFalsa123 ;
+%X = avMoreno708.
+
+% 6.
+%?- quiere(_,caracteristica(avMoreno708,X)).
+%X = ambientes(7)
+%X = jardin() ;
+%X = pileta(30) ;
+%X = ambientes(7) ;
+%X = pileta(30) ;
+%X = ambientes(7) ;
+%X = pileta(30) ;
+%X = ambientes(7) ;
+%X = jardin() ;
+%X = pileta(30) ;
+%X = ambientes(7) ;
+%X = pileta(30) ;
+%X = ambientes(7) ;
+%X = pileta(30) ;
+%...Aca se cuelga
