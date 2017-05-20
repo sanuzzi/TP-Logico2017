@@ -14,6 +14,12 @@ caracteristica(avSiempreViva742,jardin()).
 
 caracteristica(avMoreno708,pileta(30)).
 
+persona(cliente(carlos)).
+persona(cliente(maria)).
+persona(cliente(ana)).
+persona(cliente(pedro)).
+persona(cliente(chameleon)).
+
 % 1.
 %?- caracteristica(X,pileta(30)).
 %X = avMoreno708.
@@ -56,10 +62,10 @@ quiere(maria, (caracteristica(UnaCasa,pileta( UnosMetrosCubicos)))):-
 quiere(pedro, UnaCaracteristica):-
   quiere(maria, UnaCaracteristica).
 
-quiere(chameleon, UnaCaracteristica):- quiere(carlos, UnaCaracteristica).
-quiere(chameleon, UnaCaracteristica):- quiere(ana, UnaCaracteristica).
-quiere(chameleon, UnaCaracteristica):- quiere(maria, UnaCaracteristica).
-quiere(chameleon, UnaCaracteristica):- quiere(pedro, UnaCaracteristica).
+quiere(chameleon, UnaCaracteristica):-
+  persona(cliente(Cualquiera)),
+  Cualquiera\=chameleon,
+  quiere(Cualquiera, UnaCaracteristica).
 
 % 3.
 %?- quiere(pedro, X).
@@ -100,7 +106,7 @@ quiere(chameleon, UnaCaracteristica):- quiere(pedro, UnaCaracteristica).
 
 % 7.
 noCumpleNingunaCaracteristicaBuscada(UnaCasa):-
-  casa(UnaCasa),
+  casa(UnaCasa,_),
   forall(
     casa(UnaCasa,_),
     not(quiere(_,caracteristica(UnaCasa,_)))).
