@@ -19,8 +19,8 @@ caracteristica(avMoreno708,pileta(30)).
 %X = avMoreno708.
 
 igualAmbientes(Casa1,Casa2):-
-  caracteristica(Casa1,ambientes(UnosAmbientes)),
-  caracteristica(Casa2,ambientes(UnosAmbientes)),
+  caracteristica(Casa1,ambientes(UnosAmbientes))),
+  caracteristica(Casa2,ambientes(UnosAmbientes))),
   Casa1 \= Casa2.
 
 % 2.
@@ -83,13 +83,6 @@ quiere(chameleon, UnaCaracteristica):- quiere(pedro, UnaCaracteristica).
 
 % 6.
 %?- quiere(_,caracteristica(avMoreno708,X)).
-%X = ambientes(7)
-%X = jardin() ;
-%X = pileta(30) ;
-%X = ambientes(7) ;
-%X = pileta(30) ;
-%X = ambientes(7) ;
-%X = pileta(30) ;
 %X = ambientes(7) ;
 %X = jardin() ;
 %X = pileta(30) ;
@@ -97,4 +90,17 @@ quiere(chameleon, UnaCaracteristica):- quiere(pedro, UnaCaracteristica).
 %X = pileta(30) ;
 %X = ambientes(7) ;
 %X = pileta(30) ;
-%...Aca se cuelga
+%X = ambientes(7) ;
+%X = jardin() ;
+%X = pileta(30) ;
+%X = ambientes(7) ;
+%X = pileta(30) ;
+%X = ambientes(7) ;
+%X = pileta(30).
+
+% 7.
+noCumpleNingunaCaracteristicaBuscada(UnaCasa):-
+  casa(UnaCasa),
+  forall(
+    casa(UnaCasa,_),
+    not(quiere(_,caracteristica(UnaCasa,_)))).
