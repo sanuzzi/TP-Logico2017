@@ -50,7 +50,18 @@ quiere(ana, (pileta(UnaCasa,UnosMetrosCubicos))):- cumplePileta(UnaCasa,UnosMetr
 quiere(maria, (ambientes(UnaCasa,UnosAmbientes))):- cumpleAmbientes(UnaCasa, UnosAmbientes,3).
 quiere(maria, (pileta(UnaCasa, UnosMetrosCubicos))):- cumplePileta(UnaCasa,UnosMetrosCubicos, 15).
 
-
 quiere(pedro, UnaRestriccion):- quiere(maria, UnaRestriccion).
 
 quiere(chameleon, UnaCasa):- quiere(Cualquiera, UnaCasa),Cualquiera\=chameleon.
+
+% 3.
+% ?- quiere(pedro,X).
+% X = ambientes(tinsmithCircle1774, 3) ;
+% X = ambientes(avMoreno708, 7) ;
+% X = ambientes(avSiempreViva742, 4) ;
+% X = ambientes(calleFalsa123, 3) ;
+% X = pileta(avMoreno708, 30).
+
+% 4.
+% ?-  ambientes(X,2).
+% false.
