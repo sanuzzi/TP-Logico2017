@@ -21,8 +21,8 @@ persona(cliente(pedro)).
 persona(cliente(chameleon)).
 
 % 1.
-%?- caracteristica(X,pileta(30)).
-%X = avMoreno708.
+% ?- caracteristica(X,pileta(30)).
+% X = avMoreno708.
 
 igualAmbientes(Casa1,Casa2):-
   caracteristica(Casa1,ambientes(UnosAmbientes)),
@@ -30,13 +30,12 @@ igualAmbientes(Casa1,Casa2):-
   Casa1 \= Casa2.
 
 % 2.
-%?- igualAmbientes(X,Y).
-%X = tinsmithCircle1774,
-%Y = calleFalsa123 ;
-%X = calleFalsa123,
-%Y = tinsmithCircle1774 ;
-%false.
-
+% ?- igualAmbientes(X,Y).
+% X = tinsmithCircle1774,
+% Y = calleFalsa123 ;
+% X = calleFalsa123,
+% Y = tinsmithCircle1774 ;
+% false.
 
 cumpleAmbientes(UnaCasa, UnosAmbientes, UnaRestriccion):-
   caracteristica(UnaCasa,ambientes(UnosAmbientes)),
@@ -68,52 +67,54 @@ quiere(chameleon, UnaCaracteristica):-
   quiere(Cualquiera, UnaCaracteristica).
 
 % 3.
-%?- quiere(pedro, X).
-%X = caracteristica(tinsmithCircle1774, ambientes(3)) ;
-%X = caracteristica(avMoreno708, ambientes(7)) ;
-%X = caracteristica(avSiempreViva742, ambientes(4)) ;
-%X = caracteristica(calleFalsa123, ambientes(3)) ;
-%X = caracteristica(avMoreno708, pileta(30)).
+% ?- quiere(pedro, X).
+% X = caracteristica(tinsmithCircle1774, ambientes(3)) ;
+% X = caracteristica(avMoreno708, ambientes(7)) ;
+% X = caracteristica(avSiempreViva742, ambientes(4)) ;
+% X = caracteristica(calleFalsa123, ambientes(3)) ;
+% X = caracteristica(avMoreno708, pileta(30)).
 
 % 4.
-%?- caracteristica(X,ambientes(2)).
-%false.
+% ?- caracteristica(X,ambientes(2)).
+% false.
 
 % 5.
-%?- quiere(pedro, caracteristica(X,_)).
-%X = tinsmithCircle1774 ;
-%X = avMoreno708 ;
-%X = avSiempreViva742 ;
-%X = calleFalsa123 ;
-%X = avMoreno708.
+% ?- quiere(pedro, caracteristica(X,_)).
+% X = tinsmithCircle1774 ;
+% X = avMoreno708 ;
+% X = avSiempreViva742 ;
+% X = calleFalsa123 ;
+% X = avMoreno708.
 
 % 6.
-%?- quiere(_,caracteristica(avMoreno708,X)).
-%X = ambientes(7) ;
-%X = jardin() ;
-%X = pileta(30) ;
-%X = ambientes(7) ;
-%X = pileta(30) ;
-%X = ambientes(7) ;
-%X = pileta(30) ;
-%X = ambientes(7) ;
-%X = jardin() ;
-%X = pileta(30) ;
-%X = ambientes(7) ;
-%X = pileta(30) ;
-%X = ambientes(7) ;
-%X = pileta(30).
+% ?- quiere(_,caracteristica(avMoreno708,X)).
+% X = ambientes(7) ;
+% X = jardin() ;
+% X = pileta(30) ;
+% X = ambientes(7) ;
+% X = pileta(30) ;
+% X = ambientes(7) ;
+% X = pileta(30) ;
+% X = ambientes(7) ;
+% X = jardin() ;
+% X = pileta(30) ;
+% X = ambientes(7) ;
+% X = pileta(30) ;
+% X = ambientes(7) ;
+% X = pileta(30).
 
-% 7.
 noCumpleNingunaCaracteristicaBuscada(UnaCasa):-
   casa(UnaCasa,_),
   forall(
     casa(UnaCasa,_),
     not(quiere(_,caracteristica(UnaCasa,_)))).
 
+% 7.
 % ?- noCumpleNingunaCaracteristicaBuscada(X).
 % X = calleFalsa123.
 % :- caracteristica(calleFalsa123,ambientes(1))
 % :-\
 % ?- noCumpleNingunaCaracteristicaBuscada(X).
 % false.
+
+cumpleTodo
