@@ -6,7 +6,7 @@ casa(calleFalsa123, 200).
 caracteristica(tinsmithCircle1774,ambientes(3)).
 caracteristica(avMoreno708,ambientes(7)).
 caracteristica(avSiempreViva742,ambientes(4)).
-caracteristica(calleFalsa123,ambientes(1)).
+caracteristica(calleFalsa123,ambientes(3)).
 
 caracteristica(tinsmithCircle1774,jardin).
 caracteristica(avMoreno708,jardin).
@@ -26,17 +26,16 @@ persona(chameleon).
 % ?- caracteristica(X,pileta(30)).
 % X = avMoreno708.
 
-igualAmbientes(Casa1,Casa2):-
-  caracteristica(Casa1,ambientes(UnosAmbientes)),
-  caracteristica(Casa2,ambientes(UnosAmbientes)),
-  Casa1 \= Casa2.
-
 % 2.
-% ?- igualAmbientes(X,Y).
-% X = tinsmithCircle1774,
-% Y = calleFalsa123 ;
-% X = calleFalsa123,
-% Y = tinsmithCircle1774 ;
+% ?- caracteristica(Casa1,ambientes(UnosAmbientes)),
+% |    caracteristica(Casa2,ambientes(UnosAmbientes)),
+% |    Casa1\=Casa2.
+% Casa1 = tinsmithCircle1774,
+% UnosAmbientes = 3,
+% Casa2 = calleFalsa123 ;
+% Casa1 = calleFalsa123,
+% UnosAmbientes = 3,
+% Casa2 = tinsmithCircle1774 ;
 % false.
 
 cumpleAmbientes(UnaCasa, UnosAmbientes, UnaRestriccion):-
