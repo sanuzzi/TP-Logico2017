@@ -8,19 +8,21 @@ caracteristica(avMoreno708,ambientes(7)).
 caracteristica(avSiempreViva742,ambientes(4)).
 caracteristica(calleFalsa123,ambientes(1)).
 
-caracteristica(tinsmithCircle1774,jardin()).
-caracteristica(avMoreno708,jardin()).
-caracteristica(avSiempreViva742,jardin()).
+caracteristica(tinsmithCircle1774,jardin).
+caracteristica(avMoreno708,jardin).
+caracteristica(avSiempreViva742,jardin).
 
 caracteristica(avMoreno708,pileta(30)).
 
-persona(cliente(carlos)).
-persona(cliente(maria)).
-persona(cliente(ana)).
-persona(cliente(pedro)).
-persona(cliente(chameleon)).
+persona(carlos).
+persona(maria).
+persona(ana).
+persona(pedro).
+persona(chameleon).
 
 % 1.
+% ?- caracteristica(_,pileta(30)).
+% true.
 % ?- caracteristica(X,pileta(30)).
 % X = avMoreno708.
 
@@ -39,16 +41,16 @@ igualAmbientes(Casa1,Casa2):-
 
 cumpleAmbientes(UnaCasa, UnosAmbientes, UnaRestriccion):-
   caracteristica(UnaCasa,ambientes(UnosAmbientes)),
-  UnosAmbientes>=UnaRestriccion.
+  UnosAmbientes=<UnaRestriccion.
 
 cumplePileta(UnaCasa, UnosM3, UnaRestriccion):-
   caracteristica(UnaCasa,pileta(UnosM3)),
-  UnosM3>=UnaRestriccion.
+  UnosM3=<UnaRestriccion.
 
 quiere(carlos, (caracteristica(UnaCasa,ambientes(UnosAmbientes)))):-
   cumpleAmbientes(UnaCasa,UnosAmbientes,3).
-quiere(carlos, (caracteristica(UnaCasa,jardin()))):-
-  caracteristica(UnaCasa,jardin()).
+quiere(carlos, (caracteristica(UnaCasa,jardin))):-
+  caracteristica(UnaCasa,jardin).
 
 quiere(ana, (caracteristica(UnaCasa,pileta(UnosMetrosCubicos)))):-
   cumplePileta(UnaCasa,UnosMetrosCubicos, 15).
@@ -62,7 +64,7 @@ quiere(pedro, UnaCaracteristica):-
   quiere(maria, UnaCaracteristica).
 
 quiere(chameleon, UnaCaracteristica):-
-  persona(cliente(Cualquiera)),
+  persona(Cualquiera),
   Cualquiera\=chameleon,
   quiere(Cualquiera, UnaCaracteristica).
 
@@ -107,7 +109,8 @@ noCumpleNingunaCaracteristicaBuscada(UnaCasa):-
   casa(UnaCasa,_),
   forall(
     casa(UnaCasa,_),
-    not(quiere(_,caracteristica(UnaCasa,_)))).
+    not(quiere(_,caracteristica(UnaCasa,_)))
+    ).
 
 % 7.
 % ?- noCumpleNingunaCaracteristicaBuscada(X).
@@ -117,4 +120,14 @@ noCumpleNingunaCaracteristicaBuscada(UnaCasa):-
 % ?- noCumpleNingunaCaracteristicaBuscada(X).
 % false.
 
-cumpleTodo
+%----------ENTREGA 2----------%
+
+% 8.
+
+cumpleTodo(UnaPersona, UnaCasa):-
+  casa(UnaCasa,_),
+  persona(UnaPersona),
+  forall(
+    caracteristica(UnaCasa,X),
+    quiere(UnaPersona,(caracteristica(UnaCasa,X)))
+  ).
