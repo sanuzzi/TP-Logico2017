@@ -10,7 +10,7 @@ persona(ana).
 persona(pedro).
 persona(chameleon).
 
-/*-----Caracteristicas, Gustos y comodities-----*/
+/*-----Caracteristicas, Gustos y instalaciones-----*/
 caracteristica(tinsmithCircle1774,ambientes(3)).
 caracteristica(tinsmithCircle1774,jardin).
 caracteristica(avMoreno708,ambientes(7)).
@@ -19,6 +19,14 @@ caracteristica(avMoreno708,pileta(30)).
 caracteristica(avSiempreViva742,ambientes(4)).
 caracteristica(avSiempreViva742,jardin).
 caracteristica(calleFalsa123,ambientes(3)).
+
+instalaciones(tinsmithCircle1774,aireAcondicionado).
+instalaciones(tinsmithCircle1774,extractorCocina).
+instalaciones(tinsmithCircle1774,calefaccionGas).
+instalaciones(avMoreno708,aireAcondicionado).
+instalaciones(avMoreno708,extractorCocina).
+instalaciones(avMoreno708,calefaccionLoza).
+instalaciones(avMoreno708,vidriosDobles).
 
 quiere(carlos, ambientes(3)).
 quiere(carlos, jardin).
@@ -33,7 +41,6 @@ quiere(chameleon, UnaCaracteristica):-
   persona(Cualquiera),
   Cualquiera\=chameleon,
   quiere(Cualquiera, UnaCaracteristica).
-
 
 /*-----Predicados relacionantes de personas y casas-----*/
 cumple(
@@ -115,16 +122,17 @@ cumple(
 
 % 7.
 /*
-%¿Cuando una propiedad cumple una caracteristica?
-%Cuando cumple((caracteristica(UnaProp,UnaCarat)),_).
-%       -UnaCarat previamente tiene que ser unificada, ¿¿¿De donde???-
-%       ...de lo que quiere cada persona
-%       (esto ra lo resolvi cambiando todo el codigo)
-%Entonces, ¿cuando una caracteristica no la cumple ninguna propiedad?
-%Cuando para toda casa ninguna cumple.
+¿Cuando una propiedad cumple una caracteristica?
+Cuando cumple((caracteristica(UnaProp,UnaCarat)),_).
+       -UnaCarat previamente tiene que ser unificada, ¿¿¿De donde???-
+       ...de lo que quiere cada persona
+       (esto ra lo resolvi cambiando todo el codigo)
+Entonces, ¿cuando una caracteristica no la cumple ninguna propiedad?
+Cuando para toda casa ninguna cumple.
 
 ?- ningunaCumple(X).
 false.
+
 De testeo cambio la cantidad de ambientes que quiere carlos a 50
 ?- ningunaCumple(X).
 X = ambientes(50) ;
@@ -144,4 +152,36 @@ ningunaCumple(CaractQueQuiere):-
   ).
 %----------ENTREGA 2----------%
 
-% 8.
+/* 8.
+  Una casa cumple algo si cumple(CaractDeCasa,QuierePersona).
+  Entonces cumpleTodo si para cosa que quiere la persona la casa la cumple
+  Va a ser inversible por el segundo argumento...aunque podria ser por ambos.
+  Ya fue, por ambos...
+
+?- cumpleTodo(X,Y).
+X = carlos,Y = tinsmithCircle1774 ;
+X = carlos,Y = avMoreno708 ;
+X = carlos,Y = avSiempreViva742 ;
+X = maria,Y = avMoreno708 ;
+X = ana,Y = avMoreno708 ;
+X = pedro,Y = avMoreno708 ;
+X = chameleon,Y = avMoreno708 ;
+false.
+*/
+
+cumpleTodo(UnaPersona,UnaCasa):-
+  persona(UnaPersona),
+  casa(UnaCasa,_),
+  forall(
+    quiere(UnaPersona,LoQueQuiere),
+    cumple((caracteristica(UnaCasa,_)),(quiere(UnaPersona,LoQueQuiere)))
+  ).
+
+/* 9.
+
+*/
+
+%Op1:
+mejorOpcion(UnaPersona):-
+
+  cumpleTodo(UnaPersona,UnaCasa)
