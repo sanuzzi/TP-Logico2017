@@ -1,24 +1,63 @@
+/*-----Cosas Basicas-----*/
 casa(tinsmithCircle1774, 700).
 casa(avMoreno708, 2000).
 casa(avSiempreViva742,1000).
 casa(calleFalsa123, 200).
 
-caracteristica(tinsmithCircle1774,ambientes(3)).
-caracteristica(avMoreno708,ambientes(7)).
-caracteristica(avSiempreViva742,ambientes(4)).
-caracteristica(calleFalsa123,ambientes(3)).
-
-caracteristica(tinsmithCircle1774,jardin).
-caracteristica(avMoreno708,jardin).
-caracteristica(avSiempreViva742,jardin).
-caracteristica(avMoreno708,pileta(30)).
-
-persona(carlos, [ambientes(3),jardin]).
 persona(carlos).
 persona(maria).
 persona(ana).
 persona(pedro).
 persona(chameleon).
+
+/*-----Caracteristicas, Gustos y comodities-----*/
+caracteristica(tinsmithCircle1774,ambientes(3)).
+caracteristica(tinsmithCircle1774,jardin).
+caracteristica(avMoreno708,ambientes(7)).
+caracteristica(avMoreno708,jardin).
+caracteristica(avMoreno708,pileta(30)).
+caracteristica(avSiempreViva742,ambientes(4)).
+caracteristica(avSiempreViva742,jardin).
+caracteristica(calleFalsa123,ambientes(3)).
+
+quiere(carlos, ambientes(3)).
+quiere(carlos, jardin).
+quiere(ana, pileta(15)).
+quiere(maria, ambientes(3)).
+quiere(maria, pileta(15)).
+
+quiere(pedro, UnaCaracteristica):-
+  quiere(maria, UnaCaracteristica).
+
+quiere(chameleon, UnaCaracteristica):-
+  persona(Cualquiera),
+  Cualquiera\=chameleon,
+  quiere(Cualquiera, UnaCaracteristica).
+
+
+/*-----Predicados relacionantes de personas y casas-----*/
+cumple(
+    (caracteristica(UnaCasa,ambientes(AmbQueTiene))),
+    (quiere(UnaPersona,ambientes(AmbQueQuiere)))
+      ):-
+  caracteristica(UnaCasa,ambientes(AmbQueTiene)),
+  quiere(UnaPersona,ambientes(AmbQueQuiere)),
+  AmbQueTiene>=AmbQueQuiere.
+
+cumple(
+    (caracteristica(UnaCasa,pileta(M3QueTiene))),
+    (quiere(UnaPersona,pileta(M3QueQuiere)))
+      ):-
+  caracteristica(UnaCasa,pileta(M3QueTiene)),
+  quiere(UnaPersona,pileta(M3QueQuiere)),
+  M3QueTiene>=M3QueQuiere.
+
+cumple(
+    (caracteristica(UnaCasa,jardin)),
+    (quiere(UnaPersona,jardin))
+      ):-
+  caracteristica(UnaCasa,jardin),
+  quiere(UnaPersona,jardin).
 
 % 1.
 % ?- caracteristica(_,pileta(30)).
@@ -38,82 +77,71 @@ persona(chameleon).
 % Casa2 = tinsmithCircle1774 ;
 % false.
 
-cumpleAmbientes(UnaCasa, UnosAmbientes, UnaRestriccion):-
-  caracteristica(UnaCasa,ambientes(UnosAmbientes)),
-  UnosAmbientes>=UnaRestriccion.
-
-cumplePileta(UnaCasa, UnosM3, UnaRestriccion):-
-  caracteristica(UnaCasa,pileta(UnosM3)),
-  UnosM3>=UnaRestriccion.
-
-quiere(carlos, (caracteristica(UnaCasa,ambientes(UnosAmbientes)))):-
-  cumpleAmbientes(UnaCasa,UnosAmbientes,3).
-quiere(carlos, (caracteristica(UnaCasa,jardin))):-
-  caracteristica(UnaCasa,jardin).
-
-quiere(ana, (caracteristica(UnaCasa,pileta(UnosMetrosCubicos)))):-
-  cumplePileta(UnaCasa,UnosMetrosCubicos, 15).
-
-quiere(maria, (caracteristica(UnaCasa,ambientes(UnosAmbientes)))):-
-  cumpleAmbientes(UnaCasa, UnosAmbientes,3).
-quiere(maria, (caracteristica(UnaCasa,pileta( UnosMetrosCubicos)))):-
-  cumplePileta(UnaCasa,UnosMetrosCubicos, 15).
-
-quiere(pedro, UnaCaracteristica):-
-  quiere(maria, UnaCaracteristica).
-
-quiere(chameleon, UnaCaracteristica):-
-  persona(Cualquiera),
-  Cualquiera\=chameleon,
-  quiere(Cualquiera, UnaCaracteristica).
-
 % 3.
-% ?- quiere(pedro, X).
-% X = caracteristica(tinsmithCircle1774, ambientes(3)) ;
-% X = caracteristica(avMoreno708, ambientes(7)) ;
-% X = caracteristica(avSiempreViva742, ambientes(4)) ;
-% X = caracteristica(calleFalsa123, ambientes(3)) ;
-% X = caracteristica(avMoreno708, pileta(30)).
+% ?- quiere(pedro,X).
+% X = ambientes(3) ;
+% X = pileta(15).
+
 % 4.
 % ?- caracteristica(X,ambientes(2)).
 % false.
+
 % 5.
-% ?- quiere(pedro, caracteristica(X,_)).
+% ?- cumple(X,pedro).
 % X = tinsmithCircle1774 ;
 % X = avMoreno708 ;
 % X = avSiempreViva742 ;
 % X = calleFalsa123 ;
-% X = avMoreno708.
-% 6.
-% ?- quiere(_,caracteristica(avMoreno708,X)).
-% X = ambientes(7) ;
-% X = jardin ;
-% X = pileta(30) ;
-% X = ambientes(7) ;
-% X = pileta(30) ;
-% X = ambientes(7) ;
-% X = pileta(30) ;
-% X = ambientes(7) ;
-% X = jardin ;
-% X = pileta(30) ;
-% X = ambientes(7) ;
-% X = pileta(30) ;
-% X = ambientes(7) ;
-% X = pileta(30).
-% 7.
-% ?- casa(UnaCasa,_),
-% |    forall(
-% |    casa(UnaCasa,_),
-% |    not(quiere(_,caracteristica(UnaCasa,_)))
-% |    ).
+% X = avMoreno708 ;
 % false.
 
+% 6.
+% ?- cumple((caracteristica(avMoreno708,X)),_).
+% X = ambientes(7) ;
+% X = ambientes(7) ;
+% X = ambientes(7) ;
+% X = ambientes(7) ;
+% X = ambientes(7) ;
+% X = ambientes(7) ;
+% X = pileta(30) ;
+% X = pileta(30) ;
+% X = pileta(30) ;
+% X = pileta(30) ;
+% X = pileta(30) ;
+% X = pileta(30) ;
+% X = jardin ;
+% X = jardin ;
+% false.
+
+% 7.
+/*
+%¿Cuando una propiedad cumple una caracteristica?
+%Cuando cumple((caracteristica(UnaProp,UnaCarat)),_).
+%       -UnaCarat previamente tiene que ser unificada, ¿¿¿De donde???-
+%       ...de lo que quiere cada persona
+%       (esto ra lo resolvi cambiando todo el codigo)
+%Entonces, ¿cuando una caracteristica no la cumple ninguna propiedad?
+%Cuando para toda casa ninguna cumple.
+
+?- ningunaCumple(X).
+false.
+De testeo cambio la cantidad de ambientes que quiere carlos a 50
+?- ningunaCumple(X).
+X = ambientes(50) ;
+X = ambientes(50) ;
+false.
+Entonces me encuentra a carlos y a chameleon
+*/
+
+ningunaCumple(CaractQueQuiere):-
+  quiere(UnaPersona,CaractQueQuiere),
+  forall(
+    casa(UnaCasa,_),
+    not(cumple(
+      (caracteristica(UnaCasa,_)),
+      (quiere(UnaPersona,CaractQueQuiere))
+    ))
+  ).
 %----------ENTREGA 2----------%
 
 % 8.
-cumpleTodo(Pers,Casa):-
-persona(Pers),
-casa(Casa,_),
-forall(
-
-).
