@@ -11,34 +11,9 @@ caracteristica(calleFalsa123,ambientes(3)).
 caracteristica(tinsmithCircle1774,jardin).
 caracteristica(avMoreno708,jardin).
 caracteristica(avSiempreViva742,jardin).
-
-/*
-?- cumpleTodo(P,C).
-P = carlos,C = tinsmithCircle1774 ;
-P = carlos,C = avMoreno708 ;
-P = carlos,C = avSiempreViva742 ;
-P = carlos,C = calleFalsa123 ;
-P = maria,C = tinsmithCircle1774 ;
-P = maria,C = avMoreno708 ;
-P = maria,C = avSiempreViva742 ;
-P = maria,C = calleFalsa123 ;
-P = ana,C = tinsmithCircle1774 ;
-P = ana,C = avMoreno708 ;
-P = ana,C = avSiempreViva742 ;
-P = ana,C = calleFalsa123 ;
-P = pedro,C = tinsmithCircle1774 ;
-P = pedro,C = avMoreno708 ;
-P = pedro,C = avSiempreViva742 ;
-P = pedro,C = calleFalsa123 ;
-P = chameleon,C = tinsmithCircle1774 ;
-P = chameleon,C = avMoreno708 ;
-P = chameleon,C = avSiempreViva742 ;
-P = chameleon,C = calleFalsa123.
-*/
-
 caracteristica(avMoreno708,pileta(30)).
 
-%persona(carlos, [caracteristica(_,ambientes(3)),caracteristica(_,jardin)]).
+persona(carlos, [ambientes(3),jardin]).
 persona(carlos).
 persona(maria).
 persona(ana).
