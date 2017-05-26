@@ -22,21 +22,25 @@ caracteristica(calleFalsa123,ambientes(3)).
 
 instalaciones(tinsmithCircle1774,aireAcondicionado).
 instalaciones(tinsmithCircle1774,extractorCocina).
-instalaciones(tinsmithCircle1774,calefaccionGas).
+instalaciones(tinsmithCircle1774,calefaccion(gas)).
 instalaciones(avMoreno708,aireAcondicionado).
 instalaciones(avMoreno708,extractorCocina).
-instalaciones(avMoreno708,calefaccionLoza).
+instalaciones(avMoreno708,calefaccion(lozaRadiante)).
 instalaciones(avMoreno708,vidriosDobles).
+instalaciones(avSiempreViva742,calefaccion(gas)).
 
 quiere(carlos, ambientes(3)).
 quiere(carlos, jardin).
 quiere(ana, pileta(15)).
+quiere(ana,aireAcondicionado).
+quiere(ana,vidriosDobles).
 quiere(maria, ambientes(3)).
 quiere(maria, pileta(15)).
 
 quiere(pedro, UnaCaracteristica):-
   quiere(maria, UnaCaracteristica).
-
+quiere(pedro, vidriosDobles).
+quiere(pedro, calefaccion(lozaRadiante)).
 quiere(chameleon, UnaCaracteristica):-
   persona(Cualquiera),
   Cualquiera\=chameleon,
