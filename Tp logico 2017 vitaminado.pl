@@ -53,6 +53,7 @@ quiere(chameleon, UnaCaracteristica):-
 
 /*-----Predicados relacionantes de personas y casas-----*/
 
+
 /*
 ¿Qué están recibiendo? Parece el predicado, pero en este contexto es un Functor.
 Así que están recibiendo al Functor caracteristica y al Functor quiere, con esos argumentos.
@@ -70,10 +71,7 @@ cumple(
   quiere(UnaPersona,ambientes(AmbQueQuiere)),
   AmbQueTiene>=AmbQueQuiere.
 
-cumple(
-    (caracteristica(UnaCasa,pileta(M3QueTiene))),
-    (quiere(UnaPersona,pileta(M3QueQuiere)))
-      ):-
+cumple((caracteristica(UnaCasa,pileta(M3QueTiene))),(quiere(UnaPersona,pileta(M3QueQuiere)))):-
   caracteristica(UnaCasa,pileta(M3QueTiene)),
   quiere(UnaPersona,pileta(M3QueQuiere)),
   M3QueTiene>=M3QueQuiere.
@@ -224,10 +222,21 @@ cumpleTodo(UnaPersona,UnaCasa):-
   ).
 
 /* 9.
+La propiedad es la mejor opcion si cumpleTodo y ademas es la propiedad de menor precio
+
+Op1
+Para toda propiedad que cumple todo es la de menor precio
+
+Op2
 
 */
+casaDeMenorPrecio(UnaCasa,UnasCasas):-
+  member(UnaCasa, UnasCasas),
+  casa(UnaCasa,UnPrecioY),
+  forall(member(X,UnasCasas), (casa(X,UnPrecioX),UnPrecioX>UnPrecioY)).
 
 %Op1:
-mejorOpcion(UnaPersona):-
-
-  cumpleTodo(UnaPersona,UnaCasa)
+mejorOpcionV1(UnaPersona,UnaCasa):-
+  cumpleTodo(UnaPersona,UnaCasa),
+  findall(Casa,cumpleTodo(UnaPersona,Casa),Casas),
+  casaDeMenorPrecio(UnaCasa,Casas).
