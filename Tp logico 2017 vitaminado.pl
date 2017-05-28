@@ -1,4 +1,8 @@
 /*-----Cosas Basicas-----*/
+
+% Sería mejor que se llamara "precio", ya que relaciona a una casa, con su precio.
+% Luego, si quieren algo que genere solo a la casa, pueden hacer casa(UnaCasa) :- precio(UnaCasa, _).
+
 casa(tinsmithCircle1774, 700).
 casa(avMoreno708, 2000).
 casa(avSiempreViva742,1000).
@@ -20,6 +24,7 @@ caracteristica(avSiempreViva742,ambientes(4)).
 caracteristica(avSiempreViva742,jardin).
 caracteristica(calleFalsa123,ambientes(3)).
 
+% Ver lo que comento más abajo
 instalaciones(tinsmithCircle1774,aireAcondicionado).
 instalaciones(tinsmithCircle1774,extractorCocina).
 instalaciones(tinsmithCircle1774,calefaccion(gas)).
@@ -47,6 +52,16 @@ quiere(chameleon, UnaCaracteristica):-
   quiere(Cualquiera, UnaCaracteristica).
 
 /*-----Predicados relacionantes de personas y casas-----*/
+
+/*
+¿Qué están recibiendo? Parece el predicado, pero en este contexto es un Functor.
+Así que están recibiendo al Functor caracteristica y al Functor quiere, con esos argumentos.
+Y luego se fijan cosas en base a los respectivos predicados.
+
+No usen functores característica y quiere. Que sean solo predicados. No necesitan esa entidad compuesta.
+
+Lo que les interesa relacionar acá, es una Característica deseada (eso sí es un functor, por ejemplo, de ambientes), con una de la propiedad.
+*/
 cumple(
     (caracteristica(UnaCasa,ambientes(AmbQueTiene))),
     (quiere(UnaPersona,ambientes(AmbQueQuiere)))
@@ -63,6 +78,22 @@ cumple(
   quiere(UnaPersona,pileta(M3QueQuiere)),
   M3QueTiene>=M3QueQuiere.
 
+/*
+Este caso de abajo debía servir para cualquier característica deseada que sea exactamente igual a la de la casa.
+Esto sirve para el jardín, y para lo que aparezca el día de mañana como "techoDeTejas", "balcón", "chimenea", etc.
+
+¿Estaría mal que sea cierto también si deseamos 3 ambientes y la casa tiene exactamente 3 ambientes? No. Estaría perfecto.
+Encontraríamos por más de un camino que la casa cumple con lo que queremos, y eso no tiene nada de malo.
+
+Pero tenemos un problema: Ver si se cumple lo de las instalaciones. Fíjense lo que dice el enunciado:
+"Para saber si una propiedad cumple con cierto conjunto de instalaciones, cada una de las instalaciones deseadas deben estar en el conjunto de las instalaciones de la propiedad"
+
+Así que hay que pensar en las instalaciones como un conjunto de cosas.
+Y a la vez hay que darle alguna buena forma de identificarlas y diferenciarlas de las otras cosas que tiene la casa.
+
+Denle una vuelta de tuerca.
+
+*/
 cumple(
     (caracteristica(UnaCasa,jardin)),
     (quiere(UnaPersona,jardin))
@@ -71,6 +102,7 @@ cumple(
   quiere(UnaPersona,jardin).
 
 % 1.
+% Esta primera consulta no hacía falta. Queríamos la de abajo.
 % ?- caracteristica(_,pileta(30)).
 % true.
 % ?- caracteristica(X,pileta(30)).
@@ -89,15 +121,21 @@ cumple(
 % false.
 
 % 3.
+% Sean expresivos también en la consulta. Con esa "X", quizá alguien entienda que Pedro quiere a otra persona, o terminar la facu.
+% Usar lo mismo en otras consultas también.
 % ?- quiere(pedro,X).
 % X = ambientes(3) ;
 % X = pileta(15).
 
 % 4.
+% Esta parte se refería a lo de "cumplir" con esos criterios (en este caso, 2 ambientes O MÁS).
+% Lo de ver si tiene cierta característica exacta ya se vio en el punto 1.
 % ?- caracteristica(X,ambientes(2)).
 % false.
 
 % 5.
+% Esto es fruta. No funciona con su versión de código.
+% En esta consulta, tienen que emplear 2 predicados, y ver la relación entre pedro y las casas que tienen algo de lo que él quiere
 % ?- cumple(X,pedro).
 % X = tinsmithCircle1774 ;
 % X = avMoreno708 ;
@@ -107,6 +145,8 @@ cumple(
 % false.
 
 % 6.
+% El predicado cumple/2 debería relacionar a una propiedad con una característica. Así que traten de pensarlo así.
+% Vean el enunciado: "Queremos saber si una propiedad cumple con cierta característica", da a entender esa relación. No se la compliquen.
 % ?- cumple((caracteristica(avMoreno708,X)),_).
 % X = ambientes(7) ;
 % X = ambientes(7) ;
@@ -145,6 +185,7 @@ false.
 Entonces me encuentra a carlos y a chameleon
 */
 
+% Repensar, sin el forall.
 ningunaCumple(CaractQueQuiere):-
   quiere(UnaPersona,CaractQueQuiere),
   forall(
@@ -173,6 +214,7 @@ X = chameleon,Y = avMoreno708 ;
 false.
 */
 
+% Esto de abajo va a cambiar un poco con las cosas de arriba, pero viene muy bien encarado.
 cumpleTodo(UnaPersona,UnaCasa):-
   persona(UnaPersona),
   casa(UnaCasa,_),
